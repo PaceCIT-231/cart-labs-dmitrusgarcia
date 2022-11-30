@@ -1,4 +1,17 @@
-let currentPrice=0, itemCount=0
+const cart = {
+    currentPrice: 0,
+    items: [],
+    addItem: function(cookie, price) {
+
+        this.items.push(cookie)
+        this.currentPrice = price + this.currentPrice
+    },
+    clear: function() {
+
+        this.currentPrice = 0
+        this.items = []
+    },
+}
 
 function addToCart(cookie) {
     /* 
@@ -9,45 +22,42 @@ function addToCart(cookie) {
         chocolate chip: 25
     */
 
-   console.log('The user is adding this type of cookie to their cart: ' , cookie) 
+    console.log('The user is adding this type of cookie to their cart: ', cookie)
 
-   //add 1 to the itemCount variable
-   itemCount = itemCount+1
-    console.log(itemCount)
+    //print cart.items.length to cartItems id
+    document.getElementById("cartItems").innerText = cart.items.length + 1
 
-    //print itemcount to cartItems id
-    document.getElementById("cartItems").innerText = itemCount
-
-   //add the correct price to the currentPrice variable
+   //add the correct price to the cart.addItem variable
    if (cookie == 'peanut butter') {
-    currentPrice = currentPrice + 20
+    cart.addItem(cookie, 20)
     }
     else if (cookie == 'sandies') {
-    currentPrice = currentPrice + 30
+    cart.addItem(cookie, 30)
     }
     else if (cookie == 'party press') {
-    currentPrice = currentPrice + 35
+    cart.addItem(cookie, 35)
     }
     else if (cookie == 'chocolate chip') {
-    currentPrice = currentPrice + 25
+    cart.addItem(cookie, 25)
     }
 
-console.log(currentPrice)
-//print currentPrice from if statement to hovertext id
-document.querySelector(".hoverText").innerHTML = "$" + currentPrice
+//print cart.addItem from if statement to hovertext id
+document.querySelector(".hoverText").innerHTML = "$" + cart.currentPrice 
+
+console.log(cart)
 }
 
-function checkout() {
+function checkout(price) {
     console.log('User is checking out.')
     //Let your customer know how many items they are purchasing and the price
     
-    prompt(`You have ${itemCount} items that will cost $${currentPrice}.  Please provide your Name and Address in the prompt below for your bill.\n` + '\nThank you for shopping with us!')
+    prompt(`You have ${cart.items.length} items that will cost $${cart.currentPrice}.  Please provide your Name and Address in the prompt below for your bill.\n` + '\nThank you for shopping with us!')
 
-    currentPrice = 0
-    itemCount = 0
+    cart.clear()
 
-    document.querySelector(".hoverText").innerHTML = "$" + currentPrice
-    document.getElementById("cartItems").innerText = itemCount
+    document.querySelector(".hoverText").innerHTML = "$" + cart.currentPrice
+    document.getElementById("cartItems").innerText = 0
+    document.getElementById("cartItems").innerHTML = "&nbsp;"
 }
 
 function darkMode() {
