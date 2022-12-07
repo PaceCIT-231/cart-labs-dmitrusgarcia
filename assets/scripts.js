@@ -11,6 +11,13 @@ const cart = {
         this.currentPrice = 0
         this.items = []
     },
+    getSummary: function() {
+        let summary = `<p>Number of Items: ${this.items.length}</p>
+            <h4>Details</h4>
+            <p>${this.items.join('<br>')}</p>
+            <p>Total Price: $${this.currentPrice}</p>`
+        return summary
+    },
 }
 
 function addToCart(cookie) {
@@ -51,7 +58,9 @@ function checkout(price) {
     console.log('User is checking out.')
     //Let your customer know how many items they are purchasing and the price
     
-    prompt(`You have ${cart.items.length} items that will cost $${cart.currentPrice}.  Please provide your Name and Address in the prompt below for your bill.\n` + '\nThank you for shopping with us!')
+    //prompt(`You have ${cart.items.length} items that will cost $${cart.currentPrice}.  Please provide your Name and Address in the prompt below for your bill.\n` + '\nThank you for shopping with us!')
+    document.getElementById("summary-body").innerHTML = cart.getSummary()
+    document.getElementById("summary").style.display = "block"
 
     cart.clear()
 
@@ -65,3 +74,13 @@ function darkMode() {
     document.querySelector("main").style.color = "white"
     document.querySelector("header").style.color = "white"
 } 
+
+function clearcart() {
+    console.log('User cleared cart')
+
+    cart.clear()
+
+    document.querySelector(".hoverText").innerHTML = "$" + cart.currentPrice
+    document.getElementById("cartItems").innerText = 0
+    document.getElementById("cartItems").innerHTML = "&nbsp;"
+}
